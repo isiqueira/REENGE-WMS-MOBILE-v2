@@ -1,0 +1,7 @@
+{
+  "name": "WMS-MOBILE-V2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
