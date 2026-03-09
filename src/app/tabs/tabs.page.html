@@ -1,20 +1,39 @@
-<ion-tabs>
+<ion-header>
+    <ion-toolbar color="wms">
+        <ion-title text-center>Mayan WMS</ion-title>
+    </ion-toolbar>
+</ion-header>
 
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="tab1" href="/tabs/tab1">
-      <ion-icon aria-hidden="true" name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
-    </ion-tab-button>
+<ion-content padding text-center>
+    <img height="120" src="assets/imgs/logomayan.jpg" />
 
-    <ion-tab-button tab="tab2" href="/tabs/tab2">
-      <ion-icon aria-hidden="true" name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
-    </ion-tab-button>
+    <div class="login">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Usuário</ion-label>
+                <ion-input type="text" [(ngModel)]="user.UserName"></ion-input>
+            </ion-item>
 
-    <ion-tab-button tab="tab3" href="/tabs/tab3">
-      <ion-icon aria-hidden="true" name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
+            <ion-item>
+                <ion-label floating>Senha</ion-label>
+                <ion-input type="password" [(ngModel)]="user.Password"></ion-input>
+            </ion-item>
 
-</ion-tabs>
+            <ion-item>
+                <button ion-button color="wms" large full (click)="login(user)">Entrar</button>
+            </ion-item>
+
+        </ion-list>
+    </div>
+
+
+</ion-content>
+<ion-footer no-padding>
+    <ion-grid no-padding>
+        <ion-row>
+            <ion-col no-padding>
+                <button no-margin ion-button full (click)="showPromptToSetApi()">Configurar Servidor</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
