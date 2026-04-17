@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/transfer"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tarefas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ga-empty [show]="transferTasksList?.length == 0"></ga-empty>
+
+  <ion-list>
+    <ion-item *ngFor="let item of transferTasksList" class="ga-list-item">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            {{ item.LocalOriginForecastAddress }}
+            <ion-icon name="share-social"></ion-icon>
+            {{ item.LocalDestinationForecastAddress }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="pricetag"></ion-icon> {{ item.ProductDescription }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Quantidade: {{ item.QuantityOriginForecast }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button fill="outline" color="wms" (click)="goToActions(item)">Iniciar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Armazenamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="fieldsVisible">
+  <ion-row class="bg-wmsmono text-white">
+    <ion-col>
+      <h4 class="title-lighter">Tarefa #{{ task?.Id }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <div style="padding: 16px;">
+    <h4 ion-text color="dark" class="text-lighter">Local de Destino</h4>
+    <h5 ion-text color="wms" class="text-lighter">{{ task?.LocalDestinationForecastAddressFormated }}</h5>
+    <h4 ion-text color="dark" class="text-lighter">Paletização</h4>
+  </div>
+
+  <ion-grid style="padding: 16px;">
+    <div class="grid-storage">
+      <div class="storage-row">
+        <div id="tableStorage" class="table-storage" [innerHTML]="tableStorage"></div>
+      </div>
+      <div class="storage-row" style="position: relative;">
+        <div class="forklift storage-process"></div>
+      </div>
+    </div>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row class="bg-wms" style="padding: 8px;">
+      <ion-col>
+        <ion-item class="bg-wms">
+          <ion-input
+            type="text"
+            [(ngModel)]="localIdentifier"
+            autofocus="true"
+            #identifier
+            (ionChange)="onChangeIdentifier()"
+            (ionBlur)="checkBlur()"
+            [readonly]="isReadonly"
+            class="bg-white"
+            placeholder="Local">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

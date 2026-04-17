@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="list-box"></ion-icon>
+      {{tfaCreate?.DocumentOrigin}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Lote</ion-label>
+      <ion-input type="text" [(ngModel)]="tfaCreate.Lot"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Peso Declarado</ion-label>
+      <ion-input type="number" [(ngModel)]="tfaCreate.DeclaredWeight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Quantidade NFe</ion-label>
+      <ion-input type="number" readonly [(ngModel)]="tfaCreate.NfeQuantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Quantidade Volumes</ion-label>
+      <ion-input type="number" [(ngModel)]="tfaCreate.VolumeQuantity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Qtde Produtos Avariados</ion-label>
+      <ion-input type="number" [(ngModel)]="tfaCreate.FailureProductQuantity"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer no-border>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="primary" (click)="cancel()">
+          <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+          Cancelar
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="wms" (click)="ok()">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          Ok
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

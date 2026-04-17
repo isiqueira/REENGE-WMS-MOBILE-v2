@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>NFes - {{order?.Code}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar placeholder="Filtrar por Agrupador" (ionInput)="getItems($event)" [(ngModel)]="isearchBar"></ion-searchbar>
+
+  <ga-empty [show]="nfeList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of nfeList; let even = even">
+      <ion-item [color]="even ? 'white' : 'light'" (click)="goPallets(item)" button>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="document-text" color="wms" size="small"></ion-icon>
+              <span class="text-wms"> {{item.Grouper}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row class="indicator">
+            <ion-col>
+              <label>Paletes</label>
+              <span>{{item.CurrentQuantity}}/{{item.Quantity}}</span>
+            </ion-col>
+            <ion-col>
+              <label>Status</label>
+              <span>{{item.StatusDescription}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="wms" (click)="print(item)">
+          <ion-icon name="print"></ion-icon>
+          Imprimir
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

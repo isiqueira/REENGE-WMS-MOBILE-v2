@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/storage-task-lists"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Armazenamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)" [(ngModel)]="isearchBar" #searchBar></ion-searchbar>
+
+  <ion-row *ngIf="storageTasks && storageTasks.length > 0">
+    <ion-col>
+      <h4 class="title-lighter">Total de Armazenamentos: {{ storageTasks?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="storageTasks?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of storageTasks; let even = even" [color]="even ? 'white' : 'light'" (click)="goStorage(item)" button>
+      <ion-label>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="open-outline"></ion-icon> Tarefa #{{ item.Id }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h6 class="title-list">{{ item.TaskList?.OrderOwnerName }}</h6>
+            <h6>Agrupador: {{ item.SealNfeGrouper }}</h6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <div class="box-doca">
+              <span class="text-list-item">{{ item.LocalOriginForecastAddressFormated }}</span>
+            </div>
+          </ion-col>
+          <ion-col size="2">
+            <div class="bg-arrow"></div>
+          </ion-col>
+          <ion-col size="4">
+            <div class="box-deposito">
+              <p class="text-list-item">{{ item.LocalDestinationForecastAddressFormated }}</p>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p class="text-list-item text-wms">{{ item.ProductDescription }}</p>
+            <p class="text-list-item">{{ item.SealIdentifier }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Paletes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button mini (click)="goCreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row color="wmsmono" class="bg-wmsmono text-white" padding>
+      <ion-col>
+        <label>Ordem</label>
+        <span> {{initialChargeOrder?.order?.Code}}</span>
+      </ion-col>
+      <ion-col>
+        <label>NFe</label>
+        <span> {{initialChargeOrder?.nfe?.Grouper}}</span>
+      </ion-col>
+      <ion-col>
+        <label>Paletes</label>
+        <span> {{palletList?.length}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ga-empty [show]="palletList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of palletList; let even = even">
+      <ion-item [color]="even ? 'white' : 'light'" (click)="goPalletItens(item)" button>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="barcode" color="dark" size="small"></ion-icon>
+              <span class="text-dark"> {{item.Identifier}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row class="indicator">
+            <ion-col>
+              <label>Agrupador</label>
+              <span>{{item.Grouper}}</span>
+            </ion-col>
+            <ion-col>
+              <label>Produto</label>
+              <span>{{item.ProductDescription}}</span>
+            </ion-col>
+            <ion-col>
+              <label>Itens</label>
+              <span>{{item.CurrentQuantity}}/{{item.Quantity}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="wms" (click)="print(item)">
+          <ion-icon name="print"></ion-icon>
+          Imprimir
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deletePallet(item)">
+          <ion-icon name="trash"></ion-icon>
+          Deletar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

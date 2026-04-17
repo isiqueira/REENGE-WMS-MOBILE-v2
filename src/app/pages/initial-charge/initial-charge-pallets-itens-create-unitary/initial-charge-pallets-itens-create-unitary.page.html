@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criação de Itens</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row padding class="bg-wmsmono text-white">
+      <ion-col size="4" class="ion-text-center">
+        <ion-icon name="barcode" color="white"></ion-icon><br>
+        {{itemCreate.SealParentIdentifier}}
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-icon name="location" color="white"></ion-icon><br>
+        {{itemCreate.Location}}
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-icon name="bookmark" color="white"></ion-icon><br>
+        {{itemCreate.Grouper}}
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="bg-white box-shadow-like-card">
+      <ion-col size="6" class="ion-align-self-center">
+        <ion-button expand="full" color="primary" fill="clear" (click)="print()">
+          <ion-icon slot="start" name="print"></ion-icon>
+          Imprimir
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row padding class="bg-white box-shadow-like-card ion-align-self-center">
+      <ion-col size="4" padding>
+        <span class="text-dark text-bold">Lastro</span>
+        <span class="text-dark text-italic"> {{sealMaster.palletInfo?.ContainerPresentationBallast}}</span>
+      </ion-col>
+      <ion-col size="4" padding>
+        <span class="text-dark text-bold">Camada</span>
+        <span class="text-dark text-italic"> {{sealMaster.palletInfo?.ContainerPresentationLayer}}</span>
+      </ion-col>
+      <ion-col size="4" padding>
+        <span class="text-dark text-bold">Total</span>
+        <span class="text-dark text-italic"> {{sealMaster.palletInfo?.ContainerPresentationTotal}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      <h2 class="title-lighter">Total Coletado</h2>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <span class="text-big text-primary">{{totalCollected}}</span>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer no-border>
+  <ion-grid>
+    <ion-row padding class="bg-wms">
+      <ion-col size="12" padding>
+        <ion-item class="bg-wms">
+          <ion-input #identifierInput
+                     type="text"
+                     [(ngModel)]="itemCreate.Identifier"
+                     autofocus="true"
+                     (ionChange)="onChangeIdentifier()"
+                     (ionBlur)="checkBlur()"
+                     [readonly]="isReadonly"
+                     class="bg-white"
+                     placeholder="Código de Barra">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

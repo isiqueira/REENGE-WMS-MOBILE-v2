@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Itens</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button mini (click)="goCreatePalletItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-searchbar #searchBar placeholder="Filtrar" (ionInput)="getItems($event)" [(ngModel)]="isearchBar"></ion-searchbar>
+
+  <ion-row *ngIf="palletItensList && palletItensList.length > 0" class="text-dark">
+    <ion-col class="no-padding-bottom">
+      <h4 class="title-lighter">Total de Itens: {{palletItensList?.length}}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="palletItensList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of palletItensList; let even = even">
+      <ion-item [color]="even ? 'white' : 'light'">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="pricetag" color="dark" size="small"></ion-icon>
+              <span class="text-dark"> {{item.Identifier}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="cube" color="wms" size="small"></ion-icon>
+              <span class="text-wms"> {{item.ProductDescription}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row class="indicator">
+            <ion-col>
+              <label>Quantidade</label>
+              <span>{{item.Quantity}}</span>
+            </ion-col>
+            <ion-col>
+              <label>Local Atual</label>
+              <span>{{item.LocationAddress}}</span>
+            </ion-col>
+            <ion-col>
+              <label>Imprimiu</label>
+              <span>{{item.Printed ? 'Sim' : 'Não'}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="wms" (click)="print(item)">
+          <ion-icon name="print"></ion-icon>
+          Imprimir
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

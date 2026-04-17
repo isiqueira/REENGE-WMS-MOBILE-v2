@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/inventory-task-lists"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Inventário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="bg-wmsmono text-white" style="padding: 8px;">
+      <ion-col size="12" class="ion-text-center">
+        <ion-icon name="pin" color="white" style="vertical-align: middle; padding-right: 5px;"></ion-icon>
+        <span style="vertical-align: middle;">{{ inventoryTaskList.LocationAddress }}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ga-empty [show]="inventoryMasters?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of inventoryMasters; let even = even">
+      <ion-item [color]="even ? 'white' : 'light'" (click)="goToInventoryChildrens(item)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="barcode" color="dark"></ion-icon>
+              <span class="text-dark">{{ item.Identifier }}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="removeItem(item)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row class="bg-wms" style="padding: 8px;">
+      <ion-col size="12">
+        <ion-item class="bg-wms">
+          <ion-input
+            type="text"
+            [(ngModel)]="inventoryItem.Identifier"
+            autofocus="true"
+            #identifier
+            (ionChange)="onChangeIdentifier()"
+            (ionBlur)="checkBlur()"
+            [readonly]="isReadonly"
+            class="bg-white"
+            placeholder="Código de Barra">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

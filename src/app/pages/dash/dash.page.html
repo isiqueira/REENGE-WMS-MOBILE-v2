@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-title>Mayan WMS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="menu">
+  <ion-grid>
+    <ion-row>
+      <span class="text-bold text-italic">Bem vindo, {{username}}</span>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngFor="let item of pages">
+    <ion-row>
+      <ion-col size="12">
+        <div class="menu-header">{{item.Category}}</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col
+        [size]="item.Items.length >= 3 ? '4' : '6'"
+        *ngFor="let page of item.Items">
+        <div (click)="goItemMenu(page)" class="item-menu {{page.CssClass}}">
+          <ion-icon [name]="page.Icon" color="wms"></ion-icon>
+          <span>{{page.Name}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

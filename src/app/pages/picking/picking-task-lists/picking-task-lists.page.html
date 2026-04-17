@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/picking"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Picking</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setPickingLocation()" *ngIf="!pickingService.locationsIsSet">
+        <ion-icon slot="icon-only" name="pin"></ion-icon>
+      </ion-button>
+      <ion-button (click)="resetPickingLocation()" *ngIf="pickingService.locationsIsSet">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)" [(ngModel)]="isearchBar" #searchBar></ion-searchbar>
+
+  <ion-row *ngIf="pickingTaskLists && pickingTaskLists.length > 0">
+    <ion-col>
+      <h4 class="title-lighter">Total de Tarefas: {{ pickingTaskLists?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="pickingTaskLists?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item
+      *ngFor="let item of pickingTaskLists; let even = even"
+      [color]="even ? 'white' : 'light'"
+      (click)="goToPickingTasks(item)"
+      button
+      [class.border-in-list]="item.TotalItems == item.TotalItemsReal"
+      [class.border-success]="item.TotalItems == item.TotalItemsReal">
+      <ion-label>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="open-outline" color="dark"></ion-icon>
+            <span class="text-dark"> Tarefa #{{ item.Id }}</span>
+            <ion-icon name="checkmark" color="secondary" *ngIf="item.TotalItems == item.TotalItemsReal"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="person-outline" color="wms"></ion-icon>
+            <span class="text-wms"> {{ item.OrderOwnerName }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="text-wms">#{{ item.OrderCode }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="indicator">
+          <ion-col>
+            <label>Itens</label>
+            <span>{{ item.TotalItems }}</span>
+          </ion-col>
+          <ion-col>
+            <label>Itens Coletados</label>
+            <span>{{ item.TotalItemsReal }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

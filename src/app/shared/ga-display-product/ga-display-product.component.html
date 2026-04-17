@@ -1,0 +1,12 @@
+<ion-grid class="ga-display-product" [ngClass]="{'no-image': !source?.ImageDefault}">
+  <ion-row>
+    <ion-col size="3">
+      <img [src]="source?.ImageDefault" />
+    </ion-col>
+    <ion-col size="9">
+      <label><b>{{source?.ReferenceCode}}</b></label><br />
+      <span>{{source?.Description}}</span><br />
+      <span>Unid.: {{source?.UnitMeasurementAcronym}}</span>
+    </ion-col>
+  </ion-row>
+</ion-grid>

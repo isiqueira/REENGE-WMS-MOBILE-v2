@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ordens de Recebimento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar placeholder="Filtrar por Código" (ionInput)="getItems($event)" [(ngModel)]="isearchBar"></ion-searchbar>
+
+  <ga-empty [show]="orderList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of orderList; let even = even"
+              [color]="even ? 'white' : 'light'"
+              (click)="goNfes(item)" button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="cube" color="wms" size="small"></ion-icon>
+            <span class="text-wms"> {{item.Code}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="indicator">
+          <ion-col>
+            <label>Status</label>
+            <span>{{item.StatusDescription}}</span>
+          </ion-col>
+          <ion-col>
+            <label>Data</label>
+            <span>{{item.CreatedAt}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Palete</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="fieldsVisible">
+    <ion-item>
+      <ion-label position="stacked" color="dark">Local</ion-label>
+      <ion-input type="text" readonly [(ngModel)]="palletCreate.Location"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Agrupador</ion-label>
+      <ion-input type="text" [readonly]="isReadonly" [(ngModel)]="palletCreate.Grouper"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Produto</ion-label>
+      <ion-input type="text" readonly [(ngModel)]="palletCreate.ProductName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Quantidade ({{unitMeasurementAcronym}})</ion-label>
+      <ion-input class="big-input-box" type="number" min="1" max="9999999" [(ngModel)]="palletCreate.Quantity"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="controlWeight">
+      <ion-button expand="full" color="primary" (click)="copyQuantity()">
+        <ion-icon slot="start" name="copy"></ion-icon>
+        Copiar
+      </ion-button>
+    </ion-item>
+    <ion-item *ngIf="controlWeight">
+      <ion-label position="stacked" color="dark">Peso</ion-label>
+      <ion-input class="big-input-box" type="number" min="1" max="9999999" [(ngModel)]="palletCreate.Weight"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="controlWeight">
+      <ion-label position="stacked" color="dark">Peso Bruto</ion-label>
+      <ion-input class="big-input-box" type="number" min="1" max="9999999" [(ngModel)]="palletCreate.GrossWeight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Qtd. Paletes</ion-label>
+      <ion-input class="big-input-box" type="number" min="1" max="9999999" [(ngModel)]="palletCreate.QuantityPallets"></ion-input>
+    </ion-item>
+    <ion-item *ngFor="let element of jsonForms">
+      <ion-label position="fixed" color="dark">{{ element.DisplayText }}</ion-label>
+      <ion-input [type]="element.DataTypeName" [(ngModel)]="inputs[element.Id]"></ion-input>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer no-border *ngIf="fieldsVisible">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="primary" (click)="showPromptLocal()">
+          <ion-icon slot="start" name="refresh"></ion-icon>
+          Reiniciar
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="wms" (click)="checkValidate()">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          Ok
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

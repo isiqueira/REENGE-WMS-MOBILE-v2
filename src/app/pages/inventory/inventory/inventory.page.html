@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Inventário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-row *ngIf="inventoryList && inventoryList.length > 0" class="text-dark box-shadow-like-card">
+    <ion-col class="no-padding-bottom">
+      <h4 class="title-lighter">Total de Ordens: {{ inventoryList?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="inventoryList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of inventoryList; let even = even"
+              [color]="even ? 'white' : 'light'"
+              (click)="goToTaskLists(item)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="open" color="dark"></ion-icon>
+            <span class="text-dark">Ordem #{{ item.Code }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="person" color="wms"></ion-icon>
+            <span class="text-wms">{{ item.OwnerName }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="indicator">
+          <ion-col>
+            <label>Id. Ordem</label>
+            <span>{{ item.Id }}</span>
+          </ion-col>
+          <ion-col>
+            <label>Status</label>
+            <span>{{ item.StatusDescription }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

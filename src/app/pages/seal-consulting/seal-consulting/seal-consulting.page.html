@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Consulta de Selo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="fieldsVisible">
+
+  <ion-grid>
+    <ion-row padding class="bg-wmsmono text-white">
+      <ion-col size="6" class="ion-text-center">
+        <ion-icon name="barcode" color="white"></ion-icon><br>
+        {{seal?.Identifier}}
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <ion-icon name="location" color="white"></ion-icon><br>
+        {{seal?.LocationAddress}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="primary" (click)="print()">
+          <ion-icon slot="start" name="print"></ion-icon>
+          Imprimir
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="secondary" [disabled]="!seal?.HasChildren" (click)="printThisChildrens()">
+          <ion-icon slot="start" name="print"></ion-icon>
+          Imprimir Filhos
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalhes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked" color="dark">NFe</ion-label>
+          <ion-input type="text" readonly [value]="seal?.NfeGrouper"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">Agrupador</ion-label>
+          <ion-input type="text" readonly [value]="seal?.Grouper"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">É Master</ion-label>
+          <ion-input type="text" readonly [value]="seal?.IsMaster ? 'Sim' : 'Não'"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">Possui Filhos</ion-label>
+          <ion-input type="text" readonly [value]="seal?.HasChildren ? 'Sim' : 'Não'"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="seal?.PalletIdentifier">
+          <ion-label position="stacked" color="dark">Palete</ion-label>
+          <ion-input type="text" readonly [value]="seal?.PalletIdentifier"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="seal?.PalletPosition">
+          <ion-label position="stacked" color="dark">Posição Palete</ion-label>
+          <ion-input type="text" readonly [value]="seal?.PalletPosition"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">Status</ion-label>
+          <ion-input type="text" readonly [value]="seal?.StatusDescription"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">Contenedor</ion-label>
+          <ion-input type="text" readonly [value]="seal?.ContainerDescription"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">Produto</ion-label>
+          <ion-input type="text" readonly [value]="seal?.ProductDescription"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="dark">Apresentação</ion-label>
+          <ion-input type="text" readonly [value]="seal?.ProductPresentationDescription"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="sealChildrens && sealChildrens.length > 0">
+    <ion-card-header>
+      <ion-card-title>Selos Filhos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let child of sealChildrens; let even = even" [color]="even ? 'white' : 'light'">
+          <ion-label>
+            <p><ion-icon name="barcode"></ion-icon> {{child.Identifier}}</p>
+            <p>{{child.ProductDescription}}</p>
+          </ion-label>
+          <ion-button slot="end" fill="clear" (click)="printSon(child)">
+            <ion-icon name="print"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

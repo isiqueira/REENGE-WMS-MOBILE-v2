@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>TFA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="createBySeal()" color="primary">
+        <ion-icon name="barcode"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="goReceptionOrders()" color="secondary">
+        <ion-icon name="list"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-searchbar placeholder="Filtrar por ID" (ionInput)="getItems($event)" [(ngModel)]="isearchBar"></ion-searchbar>
+
+  <ga-empty [show]="tfaList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of tfaList; let even = even">
+      <ion-item [color]="even ? 'white' : 'light'">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="document" color="dark" size="small"></ion-icon>
+              <span class="text-dark"> TFA #{{item.Id}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row class="indicator">
+            <ion-col>
+              <label>Selo</label>
+              <span>{{item.SealIdentifier}}</span>
+            </ion-col>
+            <ion-col>
+              <label>Status</label>
+              <span>{{item.StatusDescription}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="wms" (click)="goPictures(item)">
+          <ion-icon name="images"></ion-icon>
+          Imagens
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

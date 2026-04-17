@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Conferência de Estufagem</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="bg-wmsmono">
+      <ion-col size="6" class="ion-text-center">
+        <ion-icon name="pricetag" color="light"></ion-icon>
+        <br>
+        {{ task?.ProductDescription }}
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <ion-icon name="pin" color="light"></ion-icon>
+        <br>
+        {{ task?.AddressFormated }}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Total Conferido</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      <span class="text-big text-primary"> {{ totalConference }} </span>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row class="bg-wms">
+      <ion-col size="12">
+        <ion-item class="bg-wms">
+          <ion-input
+            type="text"
+            [(ngModel)]="conferenceIdentifier"
+            autofocus="true"
+            #identifier
+            (ionInput)="onChangeIdentifier()"
+            (ionBlur)="checkBlur()"
+            [readonly]="isReadonly"
+            placeholder="Código de Barra">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

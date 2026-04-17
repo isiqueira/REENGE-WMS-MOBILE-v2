@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ng-container *ngIf="tfaCreate?.SealIdentifier">
+        <ion-icon name="barcode"></ion-icon>
+        {{tfaCreate?.SealIdentifier}}
+      </ng-container>
+      <ng-container *ngIf="!tfaCreate?.SealIdentifier">
+        <ion-icon name="list-box"></ion-icon>
+        {{tfaCreate?.DocumentOrigin}}
+      </ng-container>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Hidden file inputs for camera capture -->
+  <input #sealInput type="file" accept="image/*" capture="environment" style="display:none"
+         (change)="onFileSelected($event, 1)">
+  <input #localInput type="file" accept="image/*" capture="environment" style="display:none"
+         (change)="onFileSelected($event, 2)">
+  <input #failureInput type="file" accept="image/*" capture="environment" style="display:none"
+         (change)="onFileSelected($event, 3)">
+
+  <!-- Foto Selo (type 1) -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Foto do Selo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ng-container *ngIf="!sealPhoto">
+        <ion-button expand="block" color="primary" (click)="triggerCamera(sealInput)">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Câmera / Galeria
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="sealPhoto">
+        <img [src]="sealPhoto.ImageUrl" style="width:100%; max-height: 200px; object-fit: cover;">
+        <ion-button expand="block" color="danger" (click)="confirmDelete(1)">
+          <ion-icon slot="start" name="close"></ion-icon>
+          Remover
+        </ion-button>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Foto Local (type 2) -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Foto do Local</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ng-container *ngIf="!localPhoto">
+        <ion-button expand="block" color="primary" (click)="triggerCamera(localInput)">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Câmera / Galeria
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="localPhoto">
+        <img [src]="localPhoto.ImageUrl" style="width:100%; max-height: 200px; object-fit: cover;">
+        <ion-button expand="block" color="danger" (click)="confirmDelete(2)">
+          <ion-icon slot="start" name="close"></ion-icon>
+          Remover
+        </ion-button>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Foto Avaria (type 3) -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Foto da Avaria</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ng-container *ngIf="!failurePhoto">
+        <ion-button expand="block" color="primary" (click)="triggerCamera(failureInput)">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Câmera / Galeria
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="failurePhoto">
+        <img [src]="failurePhoto.ImageUrl" style="width:100%; max-height: 200px; object-fit: cover;">
+        <ion-button expand="block" color="danger" (click)="confirmDelete(3)">
+          <ion-icon slot="start" name="close"></ion-icon>
+          Remover
+        </ion-button>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer no-border>
+  <ion-button expand="full" color="wms" (click)="ok()">
+    <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+    Ok
+  </ion-button>
+</ion-footer>

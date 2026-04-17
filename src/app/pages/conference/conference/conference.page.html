@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Conferência</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-row *ngIf="nfesList && nfesList.length > 0" class="text-dark">
+    <ion-col class="no-padding-bottom">
+      <h4 class="title-lighter">Total de NFe's: {{ nfesList?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="nfesList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of nfesList; let even = even">
+      <ion-item [color]="even ? 'white' : 'light'" (click)="goPallets(item)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="open"></ion-icon> NFe #{{ item.NfNumber }}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <h6 class="title-list">Agrupador: {{ item.Grouper }}</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row class="indicator">
+            <ion-col>
+              <label>Qtd. Prevista</label>
+              <span>{{ item.QuantityItems }}</span>
+            </ion-col>
+            <ion-col>
+              <label>Qtd. Recebida</label>
+              <span>{{ item.QuantityItemsReal }}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="success" (click)="conclude(item)">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          Conferido
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

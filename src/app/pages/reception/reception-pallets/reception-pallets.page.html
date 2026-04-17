@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/reception-nfes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Paletes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button size="small" (click)="goCreatePallet()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-row class="ion-padding bg-wmsmono text-white box-shadow-like-card">
+    <ion-col size="12">
+      Ordem #{{ receptionOrder?.order?.Code }} - {{ receptionOrder?.nfe?.Grouper }}<br>
+      <span *ngIf="AllowControlFiscal">
+        Quantidade: {{ receptionQuantity }} / {{ receptionOrder?.nfe?.QuantityItems }}
+      </span>
+      <span *ngIf="!AllowControlFiscal">
+        Quantidade: {{ receptionQuantity }} / {{ receptionOrder?.nfe?.QuantityVolume }}
+      </span>
+      <ion-icon
+        *ngIf="receptionQuantity == receptionOrder?.nfe?.QuantityItems && AllowControlFiscal"
+        name="checkmark-outline"
+        color="white">
+      </ion-icon>
+      <small
+        *ngIf="receptionQuantity > receptionOrder?.nfe?.QuantityItems && AllowControlFiscal"
+        class="text-white">
+        Quantidade excedida
+      </small>
+      <ion-icon
+        *ngIf="receptionQuantity == receptionOrder?.nfe?.QuantityVolume && !AllowControlFiscal"
+        name="checkmark-outline"
+        color="white">
+      </ion-icon>
+      <small
+        *ngIf="receptionQuantity > receptionOrder?.nfe?.QuantityVolume && !AllowControlFiscal"
+        class="text-white">
+        Quantidade excedida
+      </small>
+    </ion-col>
+  </ion-row>
+
+  <ion-searchbar
+    placeholder="Filtrar"
+    (ionInput)="getItems($event)"
+    [(ngModel)]="isearchBar"
+    #searchBar>
+  </ion-searchbar>
+
+  <ion-row *ngIf="receptionPalletsList && receptionPalletsList.length > 0" class="text-dark">
+    <ion-col size="12" class="ion-padding-start">
+      <h4 class="title-lighter">Total de Paletes: {{ receptionPalletsList?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="receptionPalletsList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let item of receptionPalletsList; let even = even">
+
+      <ion-item [color]="even ? 'white' : 'light'" (click)="goPalletItens(item)" button detail="false">
+        <ion-label>
+          <p>
+            <ion-icon name="pricetag-outline" color="dark"></ion-icon>
+            <span class="text-dark">{{ item.Identifier }}</span>
+          </p>
+          <p>
+            <ion-icon name="document-outline" color="wms"></ion-icon>
+            <span class="text-wms">{{ item.Grouper }}</span>
+          </p>
+          <ion-grid class="indicator ion-no-padding">
+            <ion-row>
+              <ion-col>
+                <label>Local Atual</label>
+                <span>{{ item.LocationAddress }}</span>
+              </ion-col>
+              <ion-col>
+                <label>Quantidade</label>
+                <span>{{ item.Quantity }}</span>
+              </ion-col>
+              <ion-col>
+                <label>Imprimiu</label>
+                <span>{{ item.Printed ? 'Sim' : 'Não' }}</span>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <label>Paletização</label>
+                <span>Lastro: {{ item.ContainerPresentationBallast }}</span>
+              </ion-col>
+              <ion-col>
+                <label>&nbsp;</label>
+                <span>Camada: {{ item.ContainerPresentationLayer }}</span>
+              </ion-col>
+              <ion-col>
+                <label>&nbsp;</label>
+                <span>Total: {{ item.ContainerPresentationTotal }}</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option color="success" (click)="conclude(item)">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          Armazenar
+        </ion-item-option>
+        <ion-item-option color="primary" (click)="print(item)">
+          <ion-icon slot="start" name="print-outline"></ion-icon>
+          Imprimir
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deletePallet(item)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Deletar
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

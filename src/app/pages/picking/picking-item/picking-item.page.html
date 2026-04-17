@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/picking-tasks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Picking Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="fieldsVisible">
+    <ion-row class="bg-wmsmono text-white" style="padding: 8px;">
+      <ion-col size="6" *ngIf="task?.SealIdentifier != null" style="text-align: center;">
+        <ion-icon name="barcode-outline" color="white"></ion-icon><br>
+        {{ task.SealIdentifier }}
+      </ion-col>
+      <ion-col size="6" style="text-align: center;">
+        <ion-icon name="pin" color="white"></ion-icon><br>
+        {{ task?.LocalOriginForecastAddressFormated }}
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="bg-white" style="padding: 8px;">
+      <ion-col>
+        <span class="text-dark text-bold">NFe </span>
+        <span class="text-dark text-italic">{{ task?.NfeNfNumber }}</span>
+        <span class="text-dark text-bold"> Agrupador </span>
+        <span class="text-dark text-italic">{{ task?.NfeGrouper }}</span><br>
+        <span class="text-dark text-bold">Quantidade Prevista </span>
+        <span class="text-dark text-italic">{{ task?.QuantityOriginForecast }}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card *ngIf="fieldsVisible">
+    <ion-card-header>
+      <h2 class="title-lighter">Total Coletado</h2>
+    </ion-card-header>
+    <ion-card-content style="text-align: center;">
+      <span class="text-big text-primary">{{ totalCollected }}</span>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer *ngIf="fieldsVisible">
+  <ion-grid>
+    <ion-row class="bg-wms" style="padding: 8px;">
+      <ion-col style="padding: 8px;">
+        <ion-item class="bg-wms">
+          <ion-input
+            type="text"
+            [(ngModel)]="pickingItem.Identifier"
+            autofocus="true"
+            #identifier
+            (ionChange)="onChangeIdentifier()"
+            (ionBlur)="checkBlur()"
+            [readonly]="isReadonly"
+            class="bg-white"
+            placeholder="Código de Barra">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

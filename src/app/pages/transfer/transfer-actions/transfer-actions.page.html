@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/transfer-tasks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transferência #{{ task.Id }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid style="padding: 16px;">
+    <ion-row>
+      <ion-col size="12">
+        <h3 style="color: #bdc3c7">Escolha uma ação</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="block" (click)="goCollect()">Coletar</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <h1 class="hr-line"> OU </h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="block" (click)="goStorage()">Armazenar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

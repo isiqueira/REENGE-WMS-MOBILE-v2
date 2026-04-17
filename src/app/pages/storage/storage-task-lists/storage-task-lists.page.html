@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/storage"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Armazenamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)" [(ngModel)]="isearchBar" #searchBar></ion-searchbar>
+
+  <ion-row *ngIf="storageTaskLists && storageTaskLists.length > 0">
+    <ion-col>
+      <h4 class="title-lighter">Total de Tarefas: {{ storageTaskLists?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="storageTaskLists?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of storageTaskLists; let even = even" [color]="even ? 'white' : 'light'" (click)="goToStorageTasks(item)" button>
+      <ion-label>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="open-outline" color="dark"></ion-icon>
+            <span class="text-dark"> Tarefa #{{ item.Id }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="person-outline" color="wms"></ion-icon>
+            <span class="text-wms"> {{ item.OrderOwnerName }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="text-wms">#{{ item.OrderCode }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

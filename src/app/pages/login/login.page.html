@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-title>Mayan WMS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <img height="120" src="assets/imgs/logomayan.jpg" />
+
+  <div class="login">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Usuário</ion-label>
+        <ion-input type="text" [(ngModel)]="user.UserName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" [(ngModel)]="user.Password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-button color="wms" size="large" expand="full" (click)="login(user)">
+          Entrar
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="showPromptToSetApi()">Configurar Servidor</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

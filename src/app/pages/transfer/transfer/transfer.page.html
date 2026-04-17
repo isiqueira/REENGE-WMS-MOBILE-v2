@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transferência</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getList()"></ion-searchbar>
+
+  <ion-row *ngIf="transferList && transferList.length > 0" class="text-dark box-shadow-like-card">
+    <ion-col class="no-padding-bottom">
+      <h4 class="title-lighter">Total de Transferências: {{ transferList?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="transferList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of transferList; let even = even"
+              [color]="even ? 'white' : 'light'"
+              (click)="goToStorage(item)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="pricetag" color="dark"></ion-icon>
+            <span class="text-dark">{{ item.SealIdentifier }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row class="bg-wms" style="padding: 8px;">
+      <ion-col size="12">
+        <ion-item class="bg-wms">
+          <ion-input
+            type="text"
+            [(ngModel)]="seal.Identifier"
+            autofocus="true"
+            #identifier
+            (ionChange)="onChangeIdentifier()"
+            [readonly]="isReadonly"
+            class="bg-white"
+            placeholder="Código de Barra">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

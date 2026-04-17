@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/inventory"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tarefas de Inventário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-row *ngIf="inventoryTaskLists && inventoryTaskLists.length > 0" class="text-dark">
+    <ion-col class="no-padding-bottom">
+      <h4 class="title-lighter">Total de Tarefas: {{ inventoryTaskLists?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="inventoryTaskLists?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of inventoryTaskLists; let even = even"
+              [color]="even ? 'white' : 'light'"
+              (click)="goToInventoryMasters(item)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="open" color="dark"></ion-icon>
+            <span class="text-dark">Tarefa #{{ item.Id }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="person" color="wms"></ion-icon>
+            <span class="text-wms">{{ item.OrderOwnerName }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <span class="text-wms">#{{ item.OrderCode }}</span>
+          </ion-col>
+          <ion-col>
+            <span class="text-wms">{{ item.LocationAddress }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

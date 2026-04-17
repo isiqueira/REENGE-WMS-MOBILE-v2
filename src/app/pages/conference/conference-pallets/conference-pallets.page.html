@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="wms">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/conference"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Conferência de Paletes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="bg-wmsmono text-white box-shadow-like-card" style="padding: 8px;">
+    <ion-col size="12">
+      NFe #{{ conferenceNfe.NfNumber }} - {{ conferenceNfe.Grouper }}
+    </ion-col>
+  </ion-row>
+
+  <ion-searchbar placeholder="Filtrar" (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-row *ngIf="conferencePalletsList && conferencePalletsList.length > 0" class="text-dark">
+    <ion-col class="no-padding-bottom">
+      <h4 class="title-lighter">Total de Paletes: {{ conferencePalletsList?.length }}</h4>
+    </ion-col>
+  </ion-row>
+
+  <ga-empty [show]="conferencePalletsList?.length == 0"></ga-empty>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let item of conferencePalletsList; let even = even"
+              [color]="even ? 'white' : 'light'"
+              (click)="goPalletItens(item)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="pricetag" color="dark"></ion-icon>
+            <span class="text-dark">{{ item.Identifier }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="document" color="wms"></ion-icon>
+            <span class="text-wms">{{ item.Grouper }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="indicator">
+          <ion-col>
+            <label>Local Atual</label>
+            <span>{{ item.LocationAddress }}</span>
+          </ion-col>
+          <ion-col>
+            <label>Quantidade</label>
+            <span>{{ item.Quantity }}</span>
+          </ion-col>
+          <ion-col>
+            <label>Imprimiu</label>
+            <span>{{ item.Printed ? 'Sim' : 'Não' }}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row class="indicator">
+          <ion-col>
+            <label>Paletização</label>
+            <span>Lastro: {{ item.ContainerPresentationBallast }}</span>
+          </ion-col>
+          <ion-col>
+            <label>&nbsp;</label>
+            <span>Camada: {{ item.ContainerPresentationLayer }}</span>
+          </ion-col>
+          <ion-col>
+            <label>&nbsp;</label>
+            <span>Total: {{ item.ContainerPresentationTotal }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
